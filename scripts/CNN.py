@@ -71,15 +71,25 @@ model.add(Dense(num_classes, activation='softmax'))
 
 model.summary()
 
-model.compile(optimizer='adam', loss="categorical_crossentropy",
-              metrics = ['accuracy'])
+# Keras Metrics
+metrics = tf.keras.metrics
+
+model.compile(optimizer='adam',
+              loss="categorical_crossentropy",
+              metrics = [
+                  'accuracy',
+                  metrics.Precision(),
+                  metrics.Recall()
+              ]
+              )
 
 
 # fit the model to training data
 history = model.fit(train_data, epochs=10, verbose=1)
-loss, acc = model.evaluate(test_data, verbose=1)
-print('Test accuracy = %.3f' % acc)
-#
+loss, acc, precision, recall = model.evaluate(test_data, verbose=1)
+print('Test Set: Loss = %.3f || Accuracy = %.3f || Precision = %.3f || Recall = %.3f' % (loss, acc, precision, recall))
+
+
 # plt.plot(history.history['accuracy'])
 # plt.plot(history.history['val_accuracy'])
 # plt.title('model accuracy')
