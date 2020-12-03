@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 
 # validation_path = '..\\assets\\validation\\'
 
+SAVE_MODEL = False
+
 training_path = '..\\assets\\training\\'
 testing_path ='..\\assets\\testing\\'
 
@@ -86,6 +88,10 @@ model.compile(optimizer='adam',
 
 # fit the model to training data
 history = model.fit(train_data, epochs=10, verbose=1)
+
+if SAVE_MODEL:
+    model.save('mymodel')
+
 loss, acc, precision, recall = model.evaluate(test_data, verbose=1)
 print('Test Set: Loss = %.3f || Accuracy = %.3f || Precision = %.3f || Recall = %.3f' % (loss, acc, precision, recall))
 
